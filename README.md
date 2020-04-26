@@ -10,6 +10,5 @@ Use:
 
 To make the file global, run:
 ```bash
-chmod 777 ./deadlines
-ln -s /path/to/this/file /usr/local/bin
+sudo ./install.sh
 ```
