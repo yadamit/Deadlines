@@ -3,6 +3,11 @@
 """
 Author: Amit Yadav
 Date: April 27, 2020
+
+TODO: 
+Add year support
+Use package datetime to store dates
+
 """
 
 import argparse
@@ -15,7 +20,7 @@ import getpass
 user = getpass.getuser()
 parser = argparse.ArgumentParser()
 
-class bcolors:
+class bcolor:
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
     OKGREEN = '\033[92m'
@@ -63,12 +68,12 @@ class Data:
     def add_deadline(self, name="", date=None, month=None):
         date = int(date)
         month = int(month)
-        if date > days_in_month[month-1]:
-            print(bcolor.FAIL, "Days in given month: ", days_in_month[month-1])
-            print("Deadline not added", bcolor.DEFAULT)
-            exit()
         if month > 12:
             print(bcolor.FAIL, "month can't be greater than 12")
+            print("Deadline not added", bcolor.DEFAULT)
+            exit()
+        if date > days_in_month[month-1]:
+            print(bcolor.FAIL, "Days in given month: ", days_in_month[month-1])
             print("Deadline not added", bcolor.DEFAULT)
             exit()
         date = Date(date, month)
@@ -84,6 +89,9 @@ class Data:
                 return
         if i+1==len(self.deadlines):
             print(f"\033[91m{name}: No such deadline found\033[00m")
+
+    def removeall(self):
+        self.deadlines = []
 
     def print_all(self):
         print("All deadlines:")
@@ -118,13 +126,14 @@ else:
 
 parser.add_argument("-a", "--add", nargs="+", help="Add a new deadline: Name, date, month")
 parser.add_argument("-r", "--remove", help="Remove a deadline: -r Name", type=str)
+parser.add_argument("-rf", "--removeall", help="Remove all deadlines", action='store_true')
 parser.add_argument("--upcoming", action="store_true", help="Shows upcoming deadlines")
 parser.add_argument("--all", action="store_true", help="Shows all deadlines including past")
 
 args = parser.parse_args()
 if args.add is not None:
     (name, date, month) = args.add
-    data.add_deadline(name, date, month)
+    data.add_deadline(*args.add)
     data.save_data(data_file)
     data.print_upcoming()
 
@@ -139,6 +148,9 @@ if args.all:
 
 if args.upcoming:
     data.print_upcoming()
+if args.removeall:
+    data.removeall()
+    data.save_data(data_file)
 
 if not (args.add or args.remove or args.all or args.upcoming):
     data.print_upcoming()
