@@ -39,7 +39,7 @@ class Deadline:
 class Data:
     def __init__(self):
         self.deadlines = []
-    def add_deadline(self, name="", day=None, month=None, year=today.year, details=None):
+    def add_deadline(self, name="", day=today.day, month=today.month, year=today.year, details=None):
         day, month, year = int(day), int(month), int(year)
         if day > days_in_month[month-1]:
             print(bcolors.FAIL, "Days in given month: ", days_in_month[month-1])
