@@ -5,8 +5,8 @@ Author: Amit Yadav
 Date: April 27, 2020
 
 TODO: 
-Add year support
-Use package datetime to store dates
+Add year support : Done
+Use package datetime to store dates : Done
 Add examples in README
 """
 
