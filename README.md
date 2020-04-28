@@ -28,3 +28,8 @@ deadlines --remove DL1
 ```bash
 deadlines --upcoming
 ```
+
+Screenshot:
+<p align="left">
+    <img src="screenshot.png" alt="screenshot" width="500" align="center">
+</p>
