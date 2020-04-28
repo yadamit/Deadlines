@@ -3,7 +3,7 @@ from datetime import datetime, date
 
 days_in_month = [31,29,31,30,31,30,31,31,30,31,30,31]
 month_list = ["", "Jan","Feb","Mar","Apr","May","June","July","Aug","Sept","Oct","Nov","Dec"]
-week_list = ["Sun", "Mon", "Tue", "Wed", "Thrus", "Fri", "Sat"]
+week_list = ["Mon", "Tue", "Wed", "Thru", "Fri", "Sat", "Sun"]
 
 today = date.today()
 
@@ -29,8 +29,9 @@ class Deadline:
         str_date = str(self.date.day)+" "+month_list[self.date.month]+" "+str(self.date.year)
         days_left = (self.date-today).days
         details = bcolors.DETAILS+self.details+bcolors.DEFAULT if days_left>=0 else self.details
+        week_day = week_list[self.date.weekday()]
         if self.date>=today:
-            return f"{bcolors.UPCOMING}{self.name[:30]:>30}:  {str_date:<15} ({days_left:>3} days left) {details}{bcolors.DEFAULT}"
+            return f"{bcolors.UPCOMING}{self.name[:30]:>30}:  {week_day:>4}. {str_date:<15} ({days_left:>3} days left) {details}{bcolors.DEFAULT}"
         else:
             return f"{self.name[:30]:>30}:  {str_date:<15} {'past':<15} {details}"
     def get_date(self):
