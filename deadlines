@@ -17,8 +17,8 @@ from classes import *
 user = getpass.getuser()
 parser = argparse.ArgumentParser()
 
-
-data_file = "/home/"+user+"/deadline.pkl"
+home = os.path.expanduser("~")
+data_file = home+"/deadlines.pkl"
 
 data = None
 if os.path.isfile(data_file):
