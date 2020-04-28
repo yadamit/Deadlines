@@ -33,9 +33,16 @@ class Deadline:
         if self.date>=today:
             return f"{bcolors.UPCOMING}{self.name[:30]:>30}:  {week_day:>4}. {str_date:<15} ({days_left:>3} days left) {details}{bcolors.DEFAULT}"
         else:
-            return f"{self.name[:30]:>30}:  {str_date:<15} {'past':<15} {details}"
+            return f"{self.name[:30]:>30}:  {week_day:>4}. {str_date:<15} {'past':<15} {details}"
     def get_date(self):
         return self.date
+    def in_same_week(self, next_dl):
+            """check if the input deadline is in same week"""
+            w1 = self.date.weekday()
+            w2 = next_dl.date.weekday()
+            if w2<w1 or (next_dl.date-self.date).days>=7:
+                return False
+            return True
 
 class Data:
     def __init__(self):
@@ -69,14 +76,23 @@ class Data:
 
     def print_all(self):
         print("All deadlines:")
+        prev_dl = self.deadlines[0] if len(self.deadlines)!=0 else None
         for d in self.deadlines:
+            if not prev_dl.in_same_week(d):
+                print(" "*25,"\u2500"*44)
             print(d)
+            prev_dl = d
 
     def print_upcoming(self):
         print("Upcoming deadlines:")
-        for d in self.deadlines:
+        prev_dl = None
+        for i,d in enumerate(self.deadlines):
             if d.date>=today:
+                prev_dl = d if prev_dl==None else prev_dl
+                if not prev_dl.in_same_week(d):
+                    print(" "*25,"\u2500"*44)
                 print(d)
+                prev_dl = d
 
     def save_data(self, data_file):
         with open(data_file, "wb") as f:

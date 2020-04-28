@@ -5,9 +5,7 @@ Author: Amit Yadav
 Date: April 27, 2020
 
 TODO: 
-Add year support : Done
-Use package datetime to store dates : Done
-Add examples in README
+Group deadlines by week. Put a horizontal line after each week.
 """
 
 import argparse
@@ -21,7 +19,6 @@ parser = argparse.ArgumentParser()
 
 
 data_file = "/home/"+user+"/deadline.pkl"
-data_file = "./deadline.pkl"
 
 data = None
 if os.path.isfile(data_file):
