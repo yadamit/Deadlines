@@ -1,6 +1,6 @@
 ### Deadlines
 Simple command line tool to track deadlines.  
-Show upcoming deadlines in color.
+Shows upcoming deadlines in color.
 
 Use:
 * `deadlines --add dl_name date month year --details "Don't miss it"` : Adds a new deadline. Date, month and year are integers and optional.
@@ -31,5 +31,5 @@ deadlines --upcoming
 
 Screenshot:
 <p align="left">
-    <img src="screenshot.png" alt="screenshot" width="500" align="center">
+    <img src="screenshot.png" alt="screenshot" width="700" align="center">
 </p>
