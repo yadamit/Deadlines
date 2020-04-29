@@ -8,16 +8,11 @@ week_list = ["Mon", "Tue", "Wed", "Thru", "Fri", "Sat", "Sun"]
 today = date.today()
 
 class bcolors:
-    HEADER = '\033[95m'
-    OKBLUE = '\033[94m'
-    OKGREEN = '\033[92m'
     UPCOMING = '\033[93m'
     DETAILS = '\033[94m'
     FAIL = '\033[91m'
-    ENDC = '\033[0m'
     DEFAULT = '\033[0m'
-    BOLD = '\033[1m'
-    UNDERLINE = '\033[4m'
+    
 
 class Deadline:
     def __init__(self, name=None, date=None, details=None):
@@ -25,8 +20,10 @@ class Deadline:
         self.date = date
         self.details = "" if details is None else details
     def __repr__(self):
-        str_date = self.date.strftime("%d/%m/%y")
-        str_date = str(self.date.day)+" "+month_list[self.date.month]+" "+str(self.date.year)
+        # str_date = self.date.strftime("%d/%m/%y")
+        str_date = f"{self.date.day:>2} {month_list[self.date.month]:<4} {self.date.year}"
+        # if self.date.day<10:
+        #     str_date = '0'+str_date[1:]
         days_left = (self.date-today).days
         details = bcolors.DETAILS+self.details+bcolors.DEFAULT if days_left>=0 else self.details
         week_day = week_list[self.date.weekday()]
@@ -66,7 +63,7 @@ class Data:
         for i,d in enumerate(self.deadlines):
             if d.name==name:
                 delete = self.deadlines.pop(i)
-                print(f"Remove deadline:\n{str(delete)}")
+                print(f"Removed deadline:\n{str(delete)}")
                 return
         if i+1==len(self.deadlines):
             print(f"{bcolors.FAIL}{name}: No such deadline found{bcolors.DEFAULT}")
